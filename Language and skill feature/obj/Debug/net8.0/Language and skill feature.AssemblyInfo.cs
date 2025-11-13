@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Language and skill feature")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+85e49b5fc3ed2937f70553dd079728414c659b46")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Language and skill feature")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Language and skill feature")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
