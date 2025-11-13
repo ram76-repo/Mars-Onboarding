@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\ramva\\OneDrive\\Desktop\\INDUSTRY CONNECT\\Project Mars - Onboarding task\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{A34DF729-A66F-46AC-9072-4C2ADCCB22D0}|Language and skill feature\\Language and skill feature.csproj|c:\\users\\ramva\\onedrive\\desktop\\industry connect\\project mars - onboarding task\\language and skill feature\\stepdefinitions\\languagefeaturestepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A34DF729-A66F-46AC-9072-4C2ADCCB22D0}|Language and skill feature\\Language and skill feature.csproj|solutionrelative:language and skill feature\\stepdefinitions\\languagefeaturestepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,21 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LanguageFeatureStepDefinitions.cs",
-              "DocumentMoniker": "C:\\Users\\ramva\\OneDrive\\Desktop\\INDUSTRY CONNECT\\Project Mars - Onboarding task\\Language and skill feature\\StepDefinitions\\LanguageFeatureStepDefinitions.cs",
-              "RelativeDocumentMoniker": "Language and skill feature\\StepDefinitions\\LanguageFeatureStepDefinitions.cs",
-              "ToolTip": "C:\\Users\\ramva\\OneDrive\\Desktop\\INDUSTRY CONNECT\\Project Mars - Onboarding task\\Language and skill feature\\StepDefinitions\\LanguageFeatureStepDefinitions.cs",
-              "RelativeToolTip": "Language and skill feature\\StepDefinitions\\LanguageFeatureStepDefinitions.cs",
-              "ViewState": "AgIAAOQAAAAAAAAAAAAIwOsAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T23:15:42.954Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
