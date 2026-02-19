@@ -10,7 +10,13 @@ namespace Language_and_skill_feature.Utilities
 {
     public class CommonDriver
     {
-        IWebDriver driver = new ChromeDriver();
+        public static IWebDriver driver;
+
+        public void InitializeDriver()
+        {
+            driver = new ChromeDriver();
+            
+        }
 
     }
 }

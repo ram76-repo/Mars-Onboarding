@@ -21,23 +21,29 @@ namespace Language_Feature.StepDefinitions
     public class LanguageFeatureStepDefinitions
     {
         private IWebDriver driver;
+        private Loginpage loginpage;
+        private Profilepage profilepage;
+        private Language language;
 
         public LanguageFeatureStepDefinitions(IWebDriver driver)
         {
             this.driver = driver;
+            loginpage = new Loginpage(this.driver);
+            profilepage = new Profilepage(this.driver);
+            language = new Language(this.driver);
         }        
 
         [Given("I logged into the portal succesfully")]
         public void GivenILoggedIntoThePortalSuccesfully()
         {
-           Loginpage loginpage = new Loginpage();
-          loginpage.ValidLoginAction(driver);
+          
+          loginpage.ValidLoginAction();
         }
 
         [Given("I navigate to the profile page")]
         public void GivenINavigateToTheProfilePage()
         {
-            Profilepage profilepage = new Profilepage();
+            
             profilepage.NavigateToProfileTab(driver);
 
         }
@@ -47,8 +53,8 @@ namespace Language_Feature.StepDefinitions
         [When("I create a new language record with valid {string} and {string} data")]
         public void WhenICreateANewLanguageRecordWithValidAndData(string languageName, string proficiencyLevel)
         {
-            Language language = new Language();            
-            language.AddLanguage(driver, languageName, proficiencyLevel);
+            
+            language.AddLanguage(languageName, proficiencyLevel);
         }
 
 
@@ -56,10 +62,10 @@ namespace Language_Feature.StepDefinitions
         [Then("the new language record with valid {string} and {string} should be created successfully")]
         public void ThenTheNewLanguageRecordWithValidAndShouldBeCreatedSuccessfully(string languageName, string proficiencyLevel)
         {
-            Language language = new Language();
+            
 
-            string NewLang = language.LangDataValidation(driver);
-            string NewLevel = language.LevelDataValidation(driver);
+            string NewLang = language.LangDataValidation();
+            string NewLevel = language.LevelDataValidation();
 
             if (NewLang == languageName && NewLevel == proficiencyLevel)
             {
@@ -76,15 +82,16 @@ namespace Language_Feature.StepDefinitions
 
         public void WhenICreateANewLanguageRecordWithBlankAndValidData(string languageName, string proficiencyLevel)
         {
-            Language language = new Language();
-            language.BlankLangRecord(driver, languageName, proficiencyLevel);
+            language.AddLanguage(languageName, proficiencyLevel);
+
+            //language.BlankLangRecord(languageName, proficiencyLevel);
         }
 
         [Then("I should see an error message for blank language name")]
         public void ThenIShouldSeeAnErrorMessageForBlankLanguageName()
         {
-            Language language = new Language();
-            string BlankLanguageName = language.BlankLangValidation(driver);
+            
+            string BlankLanguageName = language.BlankLangValidation();
 
 
             if (BlankLanguageName == "Please enter language and level")
@@ -101,15 +108,17 @@ namespace Language_Feature.StepDefinitions
         [When("I create a new language record with valid {string} and blank {string} data")]
         public void WhenICreateANewLanguageRecordWithValidAndBlankData(string languageName, string proficiencyLevel)
         {
-            Language language = new Language();
-            language.BlankLevelRecord(driver, languageName, proficiencyLevel);
+            language.AddLanguage(languageName, proficiencyLevel);
+
+            // language.BlankLevelRecord(languageName, proficiencyLevel);
         }
 
         [Then("I should see an error message for blank proficiency level")]
         public void ThenIShouldSeeAnErrorMessageForBlankProficiencyLevel()
         {
-            Language language = new Language();
-            string BlankProficiencyLevel = language.BlankLevelValidation(driver);
+
+
+            string BlankProficiencyLevel = language.BlankLangValidation();
 
 
             if (BlankProficiencyLevel == "Please enter language and level")
@@ -126,15 +135,17 @@ namespace Language_Feature.StepDefinitions
         [When("I create a new language record with invalid {string} and valid {string} data")]
         public void WhenICreateANewLanguageRecordWithInvalidAndValidData(string languageName, string proficiencyLevel)
         {
-            Language language = new Language();
-            language.InvalidLangData(driver, languageName, proficiencyLevel);
+            language.AddLanguage(languageName, proficiencyLevel);
+
+            //language.InvalidLangData(languageName, proficiencyLevel);
         }
 
         [Then("the new language record with invalid {string} should not be created")]
         public void ThenTheNewLanguageRecordWithInvalidShouldNotBeCreated(string languageName)
         {
-            Language language = new Language();
-            string InvalidLanguageName = language.InvalidLangValidation(driver);
+
+            string InvalidLanguageName = language.LangDataValidation();
+
             if (InvalidLanguageName == "Please enter a valid language name")
             {
                 Assert.Pass("Invalid language record not accepted");
@@ -148,27 +159,26 @@ namespace Language_Feature.StepDefinitions
         [When("I create a new record with valid data")]
         public void WhenICreateANewRecordWithValidData(DataTable table)
         {
-            Language language = new Language();
-
+            
             
             foreach (var row in table.Rows)
             {
                 string languageName = row["languageName"];
                 string proficiencyLevel = row["proficiencyLevel"];
-                language.AddLanguage(driver, languageName, proficiencyLevel);
+                language.AddLanguage(languageName, proficiencyLevel);
             }
         }
 
         [When("I try to create another record with the same data")]
         public void WhenITryToCreateAnotherRecordWithTheSameData(DataTable dataTable)
         {
-            Language language = new Language();
+            
 
             foreach (var row in dataTable.Rows)
             {
                string languageName = row["languageName"];
                 string proficiencyLevel = row["proficiencyLevel"];
-                language.AddLanguage(driver, languageName, proficiencyLevel);
+                language.AddLanguage(languageName, proficiencyLevel);
             }
         }
               
@@ -181,8 +191,8 @@ namespace Language_Feature.StepDefinitions
             {
                 // Wait for the page to load
                 wait.WaitToBeVisible(driver, "CssSelector", "body > div.ns-box.ns-growl.ns-effect-jelly.ns-type-error.ns-show", 10);
-                IWebElement errormessage = driver.FindElement(By.CssSelector("body > div.ns-box.ns-growl.ns-effect-jelly.ns-type-error.ns-show"));
-                string error = errormessage.Text;
+
+                string error = language.DuplicateRecordValidation();
                 Console.WriteLine(error);
 
                 // Check if the error message is displayed
@@ -208,37 +218,34 @@ namespace Language_Feature.StepDefinitions
         [When("I try to create more than four records")]
         public void WhenITryToCreateMoreThanFourRecords(DataTable table)
         {
-            Language language = new Language();
-
-
+            
             foreach (var row in table.Rows)
             {
                 // Assuming the table has columns "languageName" and "proficiencyLevel"
+            
                 string languageName = row["languageName"];
                 string proficiencyLevel = row["proficiencyLevel"];
 
                 try
                 {
-                    IWebElement AddButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/thead/tr/th[3]/div"));
+                    Thread.Sleep(4000); 
+                    string Button = language.ExcessRecord();
+                   // bool isAddButtonVisible = Convert.ToBoolean(Button);
 
-                    if (!AddButton.Displayed)
+                    if (Button == "False")
                     {
                         Console.WriteLine("Add button not displayed. Maximum records reached");
-                        break;                   
-                        
+                        break;
                     }
                     else
                     {
-                        language.AddLanguage(driver, languageName, proficiencyLevel);
+                        language.AddLanguage(languageName, proficiencyLevel);
                     }
-
                 }
                 catch (StaleElementReferenceException e)
                 {
                     Console.WriteLine("Element not found");
                 }
-
-
             }
         } 
 
@@ -250,8 +257,10 @@ namespace Language_Feature.StepDefinitions
         {
             try
             {
-                if (driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/thead/tr/th[3]/div")).Displayed)
+                string Button = language.ExcessRecord();
+                //bool isAddButtonVisible = Convert.ToBoolean(Button);
 
+                if (Button == "True")
                 {
                     Assert.Fail("Add Language button is still enabled after 4 records");
 
@@ -267,28 +276,28 @@ namespace Language_Feature.StepDefinitions
         [When("I add new record to the language module")]
         public void WhenIAddNewRecordToTheLanguageModule(DataTable dataTable)
         {
-            Language language = new Language();
+            
 
             // Assuming the DataTable has columns "languageName" and "proficiencyLevel"
             foreach (var row in dataTable.Rows)
             {
                 string languageName = row["languageName"];
                 string proficiencyLevel = row["proficiencyLevel"];
-                language.AddLanguage(driver, languageName, proficiencyLevel);
+                language.AddLanguage(languageName, proficiencyLevel);
             }
         }
 
         [When("I edit the record with new data")]
         public void WhenIEditTheRecordWithNewData(DataTable dataTable)
         {
-            Language language = new Language();
+            
 
             // Assuming the DataTable has columns "languageName" and "proficiencyLevel"
             foreach (var row in dataTable.Rows)
             {
                 string languageName = row["languageName"];
                 string proficiencyLevel = row["proficiencyLevel"];
-                language.EditLanguage(driver, languageName, proficiencyLevel);
+                language.EditLanguage(languageName, proficiencyLevel);
             }
         }
 
@@ -298,10 +307,9 @@ namespace Language_Feature.StepDefinitions
         public void ThenTheLanguageRecordShouldBeUpdatedWithNewData(DataTable dataTable)
        
         {
-            Language language = new Language();
 
-            string UpdatedLang = language.EditLangDataValidation(driver);
-            string UpdatedLevel = language.EditLevelDataValidation(driver);
+            string UpdatedLang = language.EditLangDataValidation();
+            string UpdatedLevel = language.EditLevelDataValidation();
 
             // Assuming the DataTable has columns "languageName" and "proficiencyLevel"
             foreach (var row in dataTable.Rows)
@@ -325,12 +333,11 @@ namespace Language_Feature.StepDefinitions
         [When("I create a new language record")]
         public void WhenICreateANewLanguageRecord(DataTable dataTable)
         {
-            Language language = new Language();
             foreach (var row in dataTable.Rows)
             {
                 string languageName = row["languageName"];
                 string proficiencyLevel = row["proficiencyLevel"];
-                language.AddLanguage(driver, languageName, proficiencyLevel);
+                language.AddLanguage(languageName, proficiencyLevel);
             }
         }
 
@@ -338,19 +345,16 @@ namespace Language_Feature.StepDefinitions
         [When("I edit the record with blank {string} and valid {string}")]
         public void WhenIEditTheRecordWithBlankAndValid(string languageName, string proficiencyLevel)
         {
-            Language language = new Language();
-            language.EditLanguage(driver, languageName, proficiencyLevel);
+
+            language.EditLanguage(languageName, proficiencyLevel);
         }
 
 
         [Then("I should see an error message for blank language field")]
         public void ThenIShouldSeeAnErrorMessageForBlankLanguageField()
         {
-            Language language = new Language();
-            IWebElement cancelButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr/td/div/span/input[2]"));
-            cancelButton.Click();
-            string errormessage = language.BlankLangValidation(driver);
-
+            language.cancelButtonclick();         
+            string errormessage = language.EditBlankLangValidation();
 
             if (errormessage == "Please enter language and level")
             {
@@ -368,8 +372,9 @@ namespace Language_Feature.StepDefinitions
         [When("I edit the record with valid {string} and blank {string} data")]
         public void WhenIEditTheRecordWithValidAndBlankData(string languageName, string proficiencyLevel)
         {
-            Language language = new Language();
-            language.EditWithBlankLevelRecord(driver, languageName, proficiencyLevel);
+
+            //language.BlankLevelRecord(languageName, proficiencyLevel);
+            language.EditWithBlankLevelRecord(languageName, proficiencyLevel);
             Console.WriteLine(languageName);
             Console.WriteLine(proficiencyLevel);
         }
@@ -378,10 +383,9 @@ namespace Language_Feature.StepDefinitions
         [Then("I should see an error message for blank proficiency level field")]
         public void ThenIShouldSeeAnErrorMessageForBlankProficiencyLevelField()
         {
-            Language language = new Language();
-            IWebElement cancelButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr/td/div/span/input[2]"));
-            cancelButton.Click();
-            string blankLevelname = language.EditBlankLangValidation(driver);
+
+            language.cancelButtonclick();
+            string blankLevelname = language.BlankLangValidation();
 
             if (blankLevelname == "Please enter language and level")
             {
@@ -396,15 +400,15 @@ namespace Language_Feature.StepDefinitions
         [When("I edit the record with invalid {string} and {string} data")]
         public void WhenIEditTheRecordWithInvalidAndData(string languageName, string proficiencyLevel)
         {
-            Language language = new Language();
-            language.EditLanguage(driver, languageName, proficiencyLevel);
+
+            language.EditLanguage(languageName, proficiencyLevel);
         }
 
         [Then("I should see an error message for invalid data")]
         public void ThenIShouldSeeAnErrorMessageForInvalidData()
         {
-            Language language = new Language();
-            string InvalidLanguageName = language.EditInvalidLangValidation(driver);
+
+            string InvalidLanguageName = language.LangDataValidation();
 
             Console.WriteLine(InvalidLanguageName);
 
@@ -421,20 +425,22 @@ namespace Language_Feature.StepDefinitions
         [When("I edit the record with new {string} and {string} data and click cancel")]
         public void WhenIEditTheRecordWithNewAndDataAndClickCancel(string languageName, string proficiencyLevel)
         {
-            Language language = new Language();
-            language.CancelLang(driver, languageName, proficiencyLevel);
 
-            IWebElement CancelButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody[1]/tr/td/div/span/input[2]"));
-            CancelButton.Click();
+            language.CancelLang(languageName, proficiencyLevel);
+
+            Thread.Sleep(2000);
+
+            language.cancelButtonclick();
+
         }
                 
         
         [Then("the language record should not be updated with new data")]
         public void ThenTheLanguageRecordShouldNotBeUpdatedWithNewData()
         {
-            Language language = new Language();
-            string CancelLang = language.LangDataCancelValidation(driver);
-            string CancelLevel = language.LevelDataCancelValidation(driver);
+
+            string CancelLang = language.LangDataCancelValidation();
+            string CancelLevel = language.LevelDataCancelValidation();
 
             if (CancelLang == "Telugu" && CancelLevel == "Conversational")
             {
@@ -449,16 +455,16 @@ namespace Language_Feature.StepDefinitions
         [When("I delete the record")]
         public void WhenIDeleteTheRecord()
         {
-            Language language = new Language();
-            language.DeleteLanguage(driver);
+
+            language.DeleteLanguage();
         }
         
 
         [Then("the language record should be deleted successfully")]
         public void ThenTheLanguageRecordShouldBeDeletedSuccessfully()
         {
-            Language language = new Language();
-            string dataval = language.DeleteLangDataValidation(driver);
+
+            string dataval = language.DeleteLangDataValidation();
 
             Console.WriteLine(dataval);
 
@@ -476,15 +482,15 @@ namespace Language_Feature.StepDefinitions
         [When("I add a profile description with valid {string}")]
         public void WhenIAddAProfileDescriptionWithValid(string profileDescription)
         {
-            Language language = new Language();
-            language.AddDescription(driver, profileDescription);
+
+            language.AddDescription(profileDescription);
         }
 
         [Then("the profile description should be saved successfully")]
         public void ThenTheProfileDescriptionShouldBeSavedSuccessfully()
         {
-            Language language = new Language();
-            string Description = language.DescriptionValidation(driver);
+
+            string Description = language.DescriptionValidation();
             if (Description == "I am a software engineer with 5 years of experience in web development.")
             {
                 Assert.Pass("Profile description saved successfully");
@@ -499,10 +505,10 @@ namespace Language_Feature.StepDefinitions
         [When("I delete the existing text and leave a blank for the profile description and save")]
         public void WhenIDeleteTheExistingTextAndLeaveABlankForTheProfileDescriptionAndSave()
         {
-            Language language = new Language();
+            
 
             // Attempt to add a blank profile description
-            language.AddBlankDescription(driver);
+            language.AddBlankDescription();
         }
 
      
@@ -510,8 +516,8 @@ namespace Language_Feature.StepDefinitions
         [Then("it should show an error message")]
         public void ThenItShouldShowAnErrorMessage()
         {
-            Language language = new Language();
-            string BlankDescription = language.BlankDescriptionValidation(driver);
+
+            string BlankDescription = language.BlankDescriptionValidation();
 
             if (BlankDescription == "Please, a description is required")
             {
@@ -525,15 +531,15 @@ namespace Language_Feature.StepDefinitions
         [When("I add a {string} with more than {string} characters")]
         public void WhenIAddAWithMoreThanCharacters(string profileDescription, string p1)
         {
-            Language language = new Language();
-            language.AddLongDescription(driver, profileDescription);
+
+            language.AddDescription(profileDescription);
         }
 
         [Then("it should not accept additional characters")]
         public void ThenItShouldNotAcceptAdditionalCharacters()
         {
-            Language language = new Language();
-            string LongDescription = language.LongDescriptionValidation(driver);
+
+            string LongDescription = language.LongDescriptionValidation();
             int i = LongDescription.Length;
 
             if (i > 600)
@@ -544,10 +550,7 @@ namespace Language_Feature.StepDefinitions
             {
                 Assert.Pass("Profile description does not accept more than 600 characters");
             }
-        }
-
-
-        
+        }      
 
 
 
@@ -559,6 +562,7 @@ namespace Language_Feature.StepDefinitions
 
 
         
+
 
 
 

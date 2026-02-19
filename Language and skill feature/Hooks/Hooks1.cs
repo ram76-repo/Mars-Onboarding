@@ -30,7 +30,6 @@ namespace Language_and_skill_feature.Hooks
 
 
         [Before]
-
         public void Before()
         {
             driver = new ChromeDriver();
@@ -39,7 +38,6 @@ namespace Language_and_skill_feature.Hooks
 
             driver.Navigate().GoToUrl("http://localhost:5003/");
             driver.Manage().Window.Maximize();
-
         }
 
         [After()]
@@ -47,7 +45,7 @@ namespace Language_and_skill_feature.Hooks
         public static void After(FeatureContext featureContext)
 
         {
-            
+
             if (featureContext.FeatureInfo.Tags.Contains("Language"))
             {
                 try
@@ -71,13 +69,13 @@ namespace Language_and_skill_feature.Hooks
 
                     //for (int x = 1; x < rows.Count; x++)
                     //{
-                      // WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-                       //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath($"//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr[{x}]/td[3]/span[2]/i")));
+                    // WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+                    //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath($"//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr[{x}]/td[3]/span[2]/i")));
 
-                        //IWebElement deleteButton = driver.FindElement(By.XPath($"//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody[1]/tr/td[3]/span[2]/i"));
-                        //IWebElement deleteButton = driver.FindElement(By.XPath($"//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr[{x}]/td[3]/span[2]/i"));
-                        //deleteButton.Click();
-                       //Console.WriteLine(x + " Language Deleted");
+                    //IWebElement deleteButton = driver.FindElement(By.XPath($"//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody[1]/tr/td[3]/span[2]/i"));
+                    //IWebElement deleteButton = driver.FindElement(By.XPath($"//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr[{x}]/td[3]/span[2]/i"));
+                    //deleteButton.Click();
+                    //Console.WriteLine(x + " Language Deleted");
                     //}
                 }
                 catch (Exception ex)
@@ -131,13 +129,22 @@ namespace Language_and_skill_feature.Hooks
 
             }
 
-            }
-
         }
-    
+
+    }
+
 
 }
 
-        
+
+
+
+
+
+
+
+
+
+
 
 

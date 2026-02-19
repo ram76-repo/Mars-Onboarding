@@ -626,3 +626,6 @@ C:\Users\ramva\OneDrive\Desktop\INDUSTRY CONNECT\Project Mars - Onboarding task\
 C:\Users\ramva\OneDrive\Desktop\INDUSTRY CONNECT\Project Mars - Onboarding task\Language and skill feature\obj\Debug\net8.0\Language and skill feature.pdb
 C:\Users\ramva\OneDrive\Desktop\INDUSTRY CONNECT\Project Mars - Onboarding task\Language and skill feature\obj\Debug\net8.0\Language and skill feature.genruntimeconfig.cache
 C:\Users\ramva\OneDrive\Desktop\INDUSTRY CONNECT\Project Mars - Onboarding task\Language and skill feature\obj\Debug\net8.0\ref\Language and skill feature.dll
+C:\Users\ramva\OneDrive\Desktop\INDUSTRY CONNECT\Project Mars - Onboarding task\Language and skill feature\obj\Debug\net8.0\Language and skill feature.sourcelink.json
+C:\Users\ramva\OneDrive\Desktop\INDUSTRY CONNECT\Project Mars - Onboarding task\Language and skill feature\obj\Debug\net8.0\Language and skill feature.ProcessFeatureFileInputs.cache
+C:\Users\ramva\OneDrive\Desktop\INDUSTRY CONNECT\Project Mars - Onboarding task\Language and skill feature\obj\Debug\net8.0\NUnit.AssemblyHooks.Language_and_skill_feature.cs

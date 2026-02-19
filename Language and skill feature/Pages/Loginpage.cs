@@ -16,70 +16,82 @@ namespace Language_and_skill_feature.Pages
     {
         private IWebDriver driver;
 
+        By SignInButton = By.XPath("//*[@id=\"home\"]/div/div/div[1]/div/a");
+        By EmailField = By.XPath("/html/body/div[2]/div/div/div[1]/div/div[1]/input");
+        By PasswordField = By.XPath("/html/body/div[2]/div/div/div[1]/div/div[2]/input");
+        By LoginButton = By.XPath("/html/body/div[2]/div/div/div[1]/div/div[4]/button");
+        By Message = By.XPath("//*[@id=\"account-profile-section\"]/div/div[1]/div[2]/div/span");
+        By BlankEmail = By.XPath("/html/body/div[2]/div/div/div[1]/div/div[1]/div");
+        By BlankPwd = By.XPath("/html/body/div[2]/div/div/div[1]/div/div[2]/div");
+        By VerificationButton = By.XPath("//*[@id=\"submit-btn\"]");
+        By VerificationMessage = By.CssSelector("body > div.ns-box.ns-growl.ns-effect-jelly.ns-type-error.ns-show");
 
-        public void ValidLoginAction(IWebDriver driver)
+        public Loginpage(IWebDriver driver) 
+        { 
+            this.driver = driver;
+        }
+
+
+
+        public void ValidLoginAction()
         {
             
             //Enter valid credentials
-            string EmailId = "ram_login@yahoo.co.uk";
-            string Pwd = "rithika";
+            string email = "ram_login@yahoo.co.uk";
+            string password = "rithika";
 
             //click on signin button
 
             Thread.Sleep(5000);
 
-
-            IWebElement Signin = driver.FindElement(By.XPath("//*[@id=\"home\"]/div/div/div[1]/div/a"));
-            Signin.Click();
-
-            //Enter email
-            IWebElement Email = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[1]/input"));
-            Email.Click();
-            Email.SendKeys(EmailId);
-
-            //Enter password
-            IWebElement Password = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[2]/input"));
-            Password.Click();
-            Password.SendKeys(Pwd);
-
-            //Click on login button
-            IWebElement LoginButton = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[4]/button"));
-            LoginButton.Click();
-
+            driver.FindElement(SignInButton).Click();
+            driver.FindElement(EmailField).SendKeys(email);
+            driver.FindElement(PasswordField).SendKeys(password);
+            driver.FindElement(LoginButton).Click();            
         }
 
-        public void InvalidLoginAction(IWebDriver driver,  string email, string password)
+        public void InvalidLoginAction(string email, string password)
         {
             Thread.Sleep(2000);
 
-            IWebElement Signin = driver.FindElement(By.XPath("//*[@id=\"home\"]/div/div/div[1]/div/a"));
-            Signin.Click();
-
-            //Enter email
-            IWebElement Email = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[1]/input"));
-            Email.Click();
-            Email.SendKeys(email);
-
-            //Enter password
-            IWebElement Password = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[2]/input"));
-            Password.Click();
-            Password.SendKeys(password);
-
-            //Click on login button
-            IWebElement LoginButton = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[4]/button"));
-            LoginButton.Click();
+            driver.FindElement(SignInButton).Click();
+            driver.FindElement(EmailField).SendKeys(email);
+            driver.FindElement(PasswordField).SendKeys(password);
+            driver.FindElement(LoginButton).Click();
         }
 
-        public void EmailFieldBlank()
+        public string LoginValidation()
         {
-            IWebElement EmailField = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[1]/div"));
-
+            string WelcomeMessage = driver.FindElement(Message).Text;
+            return WelcomeMessage;
         }
 
-        public void PasswordFieldBlank()
+        public string EmailFieldBlank()
         {
-            IWebElement PasswordField = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[2]/div"));
+            string BlankEmailField = driver.FindElement(BlankEmail).Text;
+            return BlankEmailField;
 
         }
+
+        public string PasswordFieldBlank()
+        {
+            string BlankPasswordField = driver.FindElement(BlankPwd).Text;
+            return BlankPasswordField;
+
+        }
+
+        public string EmailVerification()
+        {
+            driver.FindElement(VerificationButton).Click();
+
+            Thread.Sleep(5000);
+
+            wait.WaitToBeVisible(driver, "CssSelector", "body > div.ns-box.ns-growl.ns-effect-jelly.ns-type-error.ns-show", 10);
+
+            string VerificationMsg = driver.FindElement(VerificationMessage).Text;
+            return VerificationMsg;
+            
+        }
+
     }
 }

@@ -122,12 +122,20 @@ await testRunner.GivenAsync("I get into the homepage", ((string)(null)), ((globa
         [global::NUnit.Framework.TestAttribute()]
         [global::NUnit.Framework.DescriptionAttribute("Check if user is able to login to the portal with valid data")]
         [global::NUnit.Framework.CategoryAttribute("logintest")]
-        public async global::System.Threading.Tasks.Task CheckIfUserIsAbleToLoginToThePortalWithValidData()
+        [global::NUnit.Framework.TestCaseAttribute("ram_login@yahoo.co.uk", "rithika", "0", null)]
+        public async global::System.Threading.Tasks.Task CheckIfUserIsAbleToLoginToThePortalWithValidData(string email, string password, string @__pickleIndex, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "logintest"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            string pickleIndex = "0";
+            argumentsOfScenario.Add("email", email);
+            argumentsOfScenario.Add("password", password);
+            string pickleIndex = @__pickleIndex;
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Check if user is able to login to the portal with valid data", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
@@ -176,7 +184,7 @@ await this.FeatureBackgroundAsync();
                     "d", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 16
+#line 20
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -189,10 +197,10 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line 7
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 17
+#line 21
  await testRunner.WhenAsync(string.Format("I enter blank \'{0}\' and valid \'{1}\'", email, password), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 18
+#line 22
  await testRunner.ThenAsync(string.Format("I should see an error message for blank \'{0}\'", email), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -221,7 +229,7 @@ await this.FeatureBackgroundAsync();
                     "d", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 25
+#line 29
  this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -234,10 +242,10 @@ await this.FeatureBackgroundAsync();
 #line 7
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 26
+#line 30
  await testRunner.WhenAsync(string.Format("I enter valid \'{0}\' and blank \'{1}\'", email, password), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 27
+#line 31
  await testRunner.ThenAsync(string.Format("I should see an error message for \'{0}\'", password), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -264,7 +272,7 @@ await this.FeatureBackgroundAsync();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Check if user is unable to login to the portal with invalid data", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 34
+#line 38
  this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -277,10 +285,10 @@ await this.FeatureBackgroundAsync();
 #line 7
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 35
+#line 39
  await testRunner.WhenAsync(string.Format("I enter invalid \'{0}\' and \'{1}\'", email, password), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 36
+#line 40
  await testRunner.ThenAsync("I should be see an error message for invalid credentials", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
