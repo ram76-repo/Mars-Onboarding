@@ -8,9 +8,13 @@ Background:
 Given I get into the homepage
 
 @logintest
-Scenario: Check if user is able to login to the portal with valid data
+Scenario Outline: Check if user is able to login to the portal with valid data
 	When I enter valid credentials
 	Then I should be able to login successfully
+
+	Examples:
+	| email                 | password |
+	| ram_login@yahoo.co.uk  | rithika  |
 	
 @logintest
 Scenario Outline: Check if user is unable to login to the portal with blank email and valid password

@@ -14,34 +14,43 @@ namespace Language_and_skill_feature.Pages
 {
     public class Profilepage
     {
-        
+        private IWebDriver driver;
+        public Profilepage(IWebDriver driver) 
+        {
+                        this.driver = driver;
+        }
+
+        By ProfileTab = By.XPath("//*[@id=\"account-profile-section\"]/div/section[1]/div/a[2]");
+        By SkillsTab = By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]");
+        By LanguagesTab = By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[1]");
+        By CertificationTab = By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[4]");
+
         public void NavigateToProfileTab(IWebDriver driver)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            IWebElement ProfileTab = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"account-profile-section\"]/div/section[1]/div/a[2]")));
-            ProfileTab.Click();
-                      
-           
+
+            wait.Until(ExpectedConditions.ElementIsVisible(ProfileTab));
+            driver.FindElement(ProfileTab).Click();           
         }
         public void NavigateToSkillsTab(IWebDriver driver)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            IWebElement SkillsTab = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]"));
-            SkillsTab.Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(SkillsTab));
+            driver.FindElement(SkillsTab).Click();
         }
 
         public void NavigateToLanguagesTab(IWebDriver driver)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            IWebElement LanguagesTab = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[1]"));
-            LanguagesTab.Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(LanguagesTab));
+            driver.FindElement(LanguagesTab).Click();
         }
 
         public void NavigateToCertification(IWebDriver driver)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            IWebElement CertificationTab = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[4]"));
-            CertificationTab.Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(CertificationTab));
+            driver.FindElement(CertificationTab).Click();
         }
 
     }
